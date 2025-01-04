@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9ec86f9-1f1a-4fb4-8466-4aa26a79a9e5" name="Changes" comment="Game Rules eingebaut mit HTML und Scrollable" />
+    <list default="true" id="e9ec86f9-1f1a-4fb4-8466-4aa26a79a9e5" name="Changes" comment="Game Rules eingebaut mit HTML und Scrollable">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,7 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Thread-test" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -33,17 +35,10 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Chrissblau08/AlmostTFT.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/FlorianBertscher/AlmostTFT&quot;,
     &quot;accountId&quot;: &quot;edf500d8-5873-450d-837b-0c88f3935c3e&quot;
   }
 }</component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -53,29 +48,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.RundenAblaufTest.executor": "Run",
-    "Application.Start.executor": "Run",
-    "Application.ThreadPoolTest.executor": "Run",
-    "Application.VewTest.executor": "Run",
-    "Application.ViewTest.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/blau08/OneDrive - thu.de/Semester 5/GameProgramming/AlmostTFT",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RundenAblaufTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Start.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ThreadPoolTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VewTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ViewTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/blau08/OneDrive - thu.de/Semester 5/GameProgramming/AlmostTFT&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\blau08\IdeaProjects\AlmostTFT\src\main\resources\sprites" />
@@ -199,8 +194,8 @@
       <workItem from="1735219729754" duration="11254000" />
       <workItem from="1735298014530" duration="3712000" />
       <workItem from="1735825677477" duration="8431000" />
-      <workItem from="1735996017740" duration="578000" />
-      <workItem from="1735996701324" duration="109000" />
+      <workItem from="1735995904046" duration="111000" />
+      <workItem from="1735997241211" duration="7000" />
     </task>
     <task id="LOCAL-00001" summary="ThreadPool: Grobe einrichtung, getestet an Snake Logic im eigenen Projekt. &#10;&#10;-&gt; Logik für das Kämpfen von Units muss eingeführt werden.">
       <option name="closed" value="true" />
@@ -426,15 +421,7 @@
       <option name="project" value="LOCAL" />
       <updated>1735834585162</updated>
     </task>
-    <task id="LOCAL-00029" summary="Game Rules eingebaut mit HTML und Scrollable">
-      <option name="closed" value="true" />
-      <created>1735996515552</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1735996515552</updated>
-    </task>
-    <option name="localTasksCounter" value="30" />
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -452,10 +439,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <ignored-roots>
-      <path value="$PROJECT_DIR$/.." />
-      <path value="$PROJECT_DIR$" />
-    </ignored-roots>
     <MESSAGE value="UnitTask: Runnable für den ThreadPool, Spiel logic fehlt noch, FxController braucht noch Infos von dem Aufbau der Scene." />
     <MESSAGE value="ShopView.java: grobe Shop View" />
     <MESSAGE value="DummyGui eingeführt über ViewTest.java testbar" />
