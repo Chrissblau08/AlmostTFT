@@ -137,11 +137,35 @@ public class BattleView extends BorderPane {
         return hpBar;
     }
 
-    private ImageView createSprite(Unit unit) {
+    private StackPane createSprite(Unit unit) {
+        // Erstelle das Sprite der Einheit
         ImageView sprite = new ImageView(new Image(getClass().getResourceAsStream("/sprites/" + unit.getId() + ".png")));
         sprite.setFitWidth(40);
         sprite.setFitHeight(40);
-        return sprite;
+
+        // Erstelle das StackPane, um Sprite und Sterne zu kombinieren
+        StackPane spritePane = new StackPane();
+
+        // Erstelle das StarLevel Image basierend auf dem Sternlevel der Einheit
+        ImageView starLevelImage = null;
+        if (unit.getStarLevel() == 2) {
+            starLevelImage = createImageView("twostar");
+        } else if (unit.getStarLevel() == 3) {
+            starLevelImage = createImageView("threestar");
+        }
+
+        // Füge das StarLevel Image hinzu, wenn es existiert
+        if (starLevelImage != null) {
+            starLevelImage.setFitWidth(20);
+            starLevelImage.setFitHeight(20);
+            StackPane.setAlignment(starLevelImage, Pos.TOP_CENTER);  // Positioniere es oben in der Mitte
+            spritePane.getChildren().add(starLevelImage);
+        }
+
+        // Füge das Sprite der Einheit zum StackPane hinzu
+        spritePane.getChildren().add(sprite);
+
+        return spritePane;
     }
 
     private void updateUnitPosition(Unit unit) {
@@ -176,5 +200,9 @@ public class BattleView extends BorderPane {
 
     public TextArea getTextArea() {
         return textArea;
+    }
+
+    private ImageView createImageView(String imageName) {
+        return new ImageView(new Image(getClass().getResourceAsStream("/sprites/" + imageName + ".png")));
     }
 }

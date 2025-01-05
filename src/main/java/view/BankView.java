@@ -99,11 +99,30 @@ public class BankView extends HBox {
         // Füge die Sprites für die Einheiten zu den Slots hinzu
         for (int i = 0; i < units.size() && i < MAX_SLOTS; i++) {
             Unit unit = units.get(i);
-            ImageView unitSprite = new ImageView(new Image(getClass().getResourceAsStream("/sprites/" + unit.getId() + ".png")));
-            //ImageView unitSprite = new ImageView(new Image(getClass().getResourceAsStream("/sprites/pikachu.png")));
-            unitSprite.setFitWidth(80); // Breite des Sprites anpassen
-            unitSprite.setFitHeight(80); // Höhe des Sprites anpassen
-            slots[i].getChildren().add(unitSprite); // Füge das Sprite dem Slot hinzu
+
+            StackPane slot = createSlot();  // Erstelle ein neues Slot
+
+            ImageView unitSpriteImage = createImageView(String.valueOf(unit.getId()));
+            unitSpriteImage.setFitWidth(50);
+            unitSpriteImage.setFitHeight(50);
+
+            ImageView starLevelImage = null;
+            if (unit.getStarLevel() == 2) {
+                starLevelImage = createImageView("twostar");
+            } else if (unit.getStarLevel() == 3) {
+                starLevelImage = createImageView("threestar");
+            }
+
+            if (starLevelImage != null) {
+                starLevelImage.setFitWidth(20);
+                starLevelImage.setFitHeight(20);
+                StackPane.setAlignment(starLevelImage, Pos.TOP_CENTER);  // Position der Sterne
+                slot.getChildren().add(starLevelImage);
+            }
+
+            slot.getChildren().add(unitSpriteImage);
+
+            slots[i].getChildren().add(slot);
         }
 
         clickedIndex = -1;
@@ -111,5 +130,9 @@ public class BankView extends HBox {
 
     public int getClickedIndex() {
         return clickedIndex;
+    }
+
+    private ImageView createImageView(String imageName) {
+        return new ImageView(new Image(getClass().getResourceAsStream("/sprites/" + imageName + ".png")));
     }
 }

@@ -3,6 +3,7 @@ package model;
 import java.util.UUID;
 
 public class Unit {
+    private transient int starLevel = 1;
     private transient UUID uuid;
     private int id;
     private String name;
@@ -141,5 +142,33 @@ public class Unit {
 
     public UUID getUuid() {
         return uuid;
+    }
+
+    public int getStarLevel() {
+        return starLevel;
+    }
+
+    public void setStarLevel(int starLevel) {
+        this.starLevel = starLevel;
+    }
+
+    public void starUpUnit() {
+        starLevel++;
+        upgradeStats();
+    }
+
+    private void upgradeStats() {
+        if (starLevel == 2) {
+            upgradeByPercentage(1.25); // 1.25-fache Steigerung für 2-Stern-Upgrades
+        } else if (starLevel == 3) {
+            upgradeByPercentage(2); // Verdopplung für 3-Stern-Upgrades
+        }
+    }
+
+    private void upgradeByPercentage(double percentage) {
+        hp *= percentage;
+        attack *= percentage;
+        defense *= percentage;
+        attackSpeed *= percentage;
     }
 }

@@ -59,7 +59,7 @@ public class GameController {
      */
     public void setPlayersAndShops() {
         for (int i = 0; i < PLAYER_COUNT; i++) {
-            players[i] = new Player(i, 100, 1, 0, 10); // Example initialization values
+            players[i] = new Player(i, 100, 1, 0, 1000); // Example initialization values
             shopControllers[i] = new ShopController(players[i], unitPool); // Initialize ShopController with Player and UnitPool
         }
     }
@@ -105,8 +105,57 @@ public class GameController {
         int UnitID = shopControllers[PlayerID].getAvailableUnits().get(index).getId();
         boolean successful = shopControllers[PlayerID].buyUnit(UnitID);
 
-        if (successful) updateGui();
+        if (successful) {
+            checkforUpgrades(player);
+            updateGui();
+        }
     }
+
+    private void checkforUpgrades(Player player) {
+        List<Unit> bank = player.getBankUnits();
+        List<Unit> board = player.getUnitsOnField();
+
+        List<Unit> AllUnits = new ArrayList<>();
+        AllUnits.addAll(bank);
+        AllUnits.addAll(board);
+
+        HashMap<Integer, HashMap<Integer, List<Unit>>> groupedUnits = new HashMap<>();
+
+
+        for (Unit unit : AllUnits) {
+            int unitID = unit.getId();
+            int starLevel = unit.getStarLevel();
+
+            groupedUnits
+                    .computeIfAbsent(unitID, k -> new HashMap<>())
+                    .computeIfAbsent(starLevel, k -> new ArrayList<>())
+                    .add(unit);
+        }
+
+        for (Map.Entry<Integer, HashMap<Integer, List<Unit>>> entry : groupedUnits.entrySet()) {
+            int unitID = entry.getKey();
+            HashMap<Integer, List<Unit>> starLevelGroups = entry.getValue();
+
+            for (Map.Entry<Integer, List<Unit>> starEntry : starLevelGroups.entrySet()) {
+                int starLevel = starEntry.getKey();
+                List<Unit> units = starEntry.getValue();
+
+
+                if (units.size() >= 2) {
+
+                    bank.removeIf(unit -> unit.getId() == unitID && unit.getStarLevel() == starLevel);
+                    board.removeIf(unit -> unit.getId() == unitID && unit.getStarLevel() == starLevel);
+
+                    Unit tmp = units.getFirst();
+                    tmp.starUpUnit();
+                    bank.add(tmp);
+
+                    checkforUpgrades(player);
+                }
+            }
+        }
+    }
+
 
     /**
      * Aktualisiert das Shop-Angebot eines Spielers.

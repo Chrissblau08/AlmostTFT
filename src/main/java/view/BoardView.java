@@ -2,6 +2,7 @@ package view;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -111,6 +112,32 @@ public class BoardView extends Pane {
 
     private void placeUnit(Unit unit) {
         StackPane unitPane = createUnitPane(unit);
+
+        // Erstelle das Unit Sprite
+        ImageView unitSpriteImage = createImageView(String.valueOf(unit.getId()));
+        unitSpriteImage.setFitWidth(40);
+        unitSpriteImage.setFitHeight(40);
+
+        // Erstelle das StarLevel Image (abhängig vom StarLevel der Einheit)
+        ImageView starLevelImage = null;
+        if (unit.getStarLevel() == 2) {
+            starLevelImage = createImageView("twostar");
+        } else if (unit.getStarLevel() == 3) {
+            starLevelImage = createImageView("threestar");
+        }
+
+        // Füge das StarLevel Image hinzu, falls es existiert
+        if (starLevelImage != null) {
+            starLevelImage.setFitWidth(20);
+            starLevelImage.setFitHeight(20);
+            StackPane.setAlignment(starLevelImage, Pos.TOP_CENTER);  // Positioniere die Sterne oben in der Mitte
+            unitPane.getChildren().add(starLevelImage);
+        }
+
+        // Füge das Unit Sprite zur UnitPane hinzu
+        unitPane.getChildren().add(unitSpriteImage);
+
+        // Füge die UnitPane zum Grid hinzu
         grid.add(unitPane, unit.getPosX(), unit.getPosY());
         unitSprites.put(unit.getUuid(), unitPane);
     }
@@ -154,5 +181,9 @@ public class BoardView extends Pane {
             ProgressBar hpBar = (ProgressBar) unitPane.getChildren().get(0);
             hpBar.setProgress(unit.getHp() / (double) unit.getMaxHp());
         }
+    }
+
+    private ImageView createImageView(String imageName) {
+        return new ImageView(new Image(getClass().getResourceAsStream("/sprites/" + imageName + ".png")));
     }
 }
