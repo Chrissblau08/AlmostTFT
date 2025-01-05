@@ -102,6 +102,7 @@ public class ShopView extends VBox {
      */
     public void setAvailableUnits(List<Unit> units) {
         unitDisplayArea.getChildren().clear();  // Zuerst alles leeren
+        selectedIndex = -1;
 
         // Füge die verfügbaren Einheiten hinzu
         for (int i = 0; i < units.size(); i++) {
