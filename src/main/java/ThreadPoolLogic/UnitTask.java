@@ -38,7 +38,7 @@ public class UnitTask implements Runnable {
     @Override
     public void run() {
         unitsUtil.setNewTarget(unit, currentPlayer);
-        FXcontroller.addTextToTextBox("Unit: " + unit.getName() + " hat als Ziel diese Unit: " + unitsUtil.getTarget().getName() + " gewählt!");
+        FXcontroller.addTextToTextBox("Unit: " + unit.getName() + " hat als Ziel diese Unit: " + unitsUtil.getTarget(unit).getName() + " gewählt!");
 
         while (unit.getHp() > 0) {
             if (unit.getHp() <= 0) {
@@ -46,15 +46,15 @@ public class UnitTask implements Runnable {
                 Thread.currentThread().interrupt();
                 break;
             }
-            if (unitsUtil.getTarget() == null || unitsUtil.getTarget().getHp() <= 0) {
+            if (unitsUtil.getTarget(unit) == null || unitsUtil.getTarget(unit).getHp() <= 0) {
                 unitsUtil.setNewTarget(unit, currentPlayer);
             }
 
-            if (unitsUtil.getTarget() == null) {
+            if (unitsUtil.getTarget(unit) == null) {
                 break;
             }
 
-            double distance = unitsUtil.calculateDistance(unit, unitsUtil.getTarget());
+            double distance = unitsUtil.calculateDistance(unit, unitsUtil.getTarget(unit));
 
             if (distance <= unit.getAttackReach()) {
                 try {
@@ -64,7 +64,7 @@ public class UnitTask implements Runnable {
                     Thread.currentThread().interrupt();
                     break;
                 }
-                FXcontroller.addTextToTextBox("Unit: " + unit.getName() + " greift die Unit: " + unitsUtil.getTarget().getName() + " an!");
+                FXcontroller.addTextToTextBox("Unit: " + unit.getName() + " greift die Unit: " + unitsUtil.getTarget(unit).getName() + " an!");
                 unitsUtil.attack(unit, currentPlayer);
             } else {
                 try {
@@ -73,7 +73,7 @@ public class UnitTask implements Runnable {
                     Thread.currentThread().interrupt();
                     break;
                 }
-                FXcontroller.addTextToTextBox("Unit: " + unit.getName() + " läuft auf " + unitsUtil.getTarget().getName() + " zu!");
+                FXcontroller.addTextToTextBox("Unit: " + unit.getName() + " läuft auf " + unitsUtil.getTarget(unit).getName() + " zu!");
                 unitsUtil.move(unit, currentPlayer);
             }
 

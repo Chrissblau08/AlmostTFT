@@ -4,13 +4,15 @@ import controller.GameController;
 import javafx.application.Platform;
 import utility.Graph;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class UnitsUtil {
     GameController controller;
     Graph graph;
-    Unit target;
+    Map<Unit,Unit> target; // unit1 sourceunit und unit2 targetunit
     int widht, height;
 
     Player[] players;
@@ -29,6 +31,7 @@ public class UnitsUtil {
         this.widht = widht;
         this.height = height;
         this.players = players;
+        target = new HashMap<>();
     }
 
     /**
@@ -37,22 +40,17 @@ public class UnitsUtil {
      * @param sourceUnit the unit that needs a target
      * @param sourcePlayer the player who owns the source unit
      */
-    public void setNewTarget(Unit sourceUnit, Player sourcePlayer) {
+    public synchronized void setNewTarget(Unit sourceUnit, Player sourcePlayer) {
         if (sourceUnit.getHp() <= 0) return;
         Player targetPlayer = getTargetPlayer(sourcePlayer);
 
-        System.out.println("SourcePlayer: " + sourcePlayer);
-        System.out.println("SourcePlayerUnits: " +  sourcePlayer.getUnitsOnField());
-        System.out.println("TargetPlayer: " + targetPlayer);
-        System.out.println("TargetPlayerUnits: " +  targetPlayer.getUnitsOnField());
-
         List<Unit> units = targetPlayer.getUnitsOnField();
-        System.out.println("After getUnits onfield: : " +  units);
+
 
         if (!units.isEmpty()) {
-            target = units.get(new Random().nextInt(units.size()));
-            log("New target set at (" + target.getPosX() + ", " + target.getPosY() + ")");
-            log("Unit: " + sourceUnit.getName() + " New target is " + target.getName());
+            target.put(sourceUnit, units.get(new Random().nextInt(units.size())));
+            //target = units.get(new Random().nextInt(units.size()));
+            log("New target set at (" + target.get(sourceUnit).getPosX() + ", " + target.get(sourceUnit).getPosY() + ")");
         }
     }
 
@@ -68,7 +66,7 @@ public class UnitsUtil {
             return;
         }
 
-        List<int[]> path = graph.dijkstra(unit.getPosX(), unit.getPosY(), target.getPosX(), target.getPosY());
+        List<int[]> path = graph.dijkstra(unit.getPosX(), unit.getPosY(), target.get(unit).getPosX(), target.get(unit).getPosY());
 
         if (!path.isEmpty()) {
             int[] nextPosition = path.getFirst();
@@ -115,11 +113,11 @@ public class UnitsUtil {
      * @param currentPlayer the player who owns the source unit
      */
     public void attack(Unit sourceUnit, Player currentPlayer) {
-        if (target != null && target.getHp() > 0 && sourceUnit != target) {
-            log("Attacking target: " + target.getName() + " at (" + target.getPosX() + ", " + target.getPosY() + ")");
-            takeDamage(target, sourceUnit.getAttack());
-            if (target.getHp() <= 0) {
-                log("Target " + target.getName() + " defeated!");
+        if (target != null && target.get(sourceUnit).getHp() > 0 && sourceUnit != target.get(sourceUnit)) {
+            log("Attacking target: " + target.get(sourceUnit).getName() + " at (" + target.get(sourceUnit).getPosX() + ", " + target.get(sourceUnit).getPosY() + ")");
+            takeDamage(target.get(sourceUnit), sourceUnit.getAttack());
+            if (target.get(sourceUnit).getHp() <= 0) {
+                log("Target " + target.get(sourceUnit).getName() + " defeated!");
                 //Platform.runLater(() -> controller.removeUnit(target, currentPlayer));
             }
         }
@@ -193,7 +191,7 @@ public class UnitsUtil {
      *
      * @return the target unit
      */
-    public Unit getTarget() {
-        return target;
+    public Unit getTarget(Unit sourceUnit) {
+        return target.get(sourceUnit);
     }
 }
