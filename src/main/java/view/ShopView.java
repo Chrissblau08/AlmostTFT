@@ -10,6 +10,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import model.Player;
 import model.Unit;
 
 import java.util.List;
@@ -31,7 +32,6 @@ public class ShopView extends VBox {
 
     public ShopView(ViewController viewController) {
         this.viewController = viewController;
-
         // Layout-Grundeinstellungen
         setSpacing(10);
         setAlignment(Pos.CENTER);
@@ -206,5 +206,17 @@ public class ShopView extends VBox {
     public void setXpVals(String progress, int level) {
         XpLabelProgress.setText(progress);
         XpLabelLevel.setText(Integer.toString(level));
+    }
+
+    public void setPlayerFaces(int PlayerIndex)
+    {
+        if(PlayerIndex == -1) return;
+
+        if(PlayerIndex == 0)
+            playerHpImageView = new ImageView(new Image(getClass().getResourceAsStream("/sprites/Pikachu.png")));
+        else
+            playerHpImageView = new ImageView(new Image(getClass().getResourceAsStream("/sprites/Pikachu2.png")));
+        playerHpImageView.setFitWidth(50);
+        playerHpImageView.setFitHeight(50);
     }
 }

@@ -498,7 +498,8 @@ public class GameController {
                     players[i].getGold(),
                     players[i].getXp() + "/" + Player.LEVEL_UP_XP_REQUIREMENTS[players[i].getLevel()],
                     players[i].getLevel(),
-                    players[i].getHealth()
+                    players[i].getHealth(),
+                    i
             ));
         }
     }

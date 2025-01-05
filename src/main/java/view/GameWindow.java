@@ -15,6 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import model.Player;
 import model.Unit;
 import utility.GameState;
 
@@ -166,6 +167,7 @@ public class GameWindow extends BorderPane {
         shopView.setPlayerHp(gameState.playerHp);
         shopView.setXpVals(gameState.playerXp, gameState.playerLevel);
         shopView.setGold(gameState.playerGold);
+        shopView.setPlayerFaces(gameState.PlayerID);
 
         //todo -Bugs?
         bankViewEnemy.update(gameState.enemyBench);

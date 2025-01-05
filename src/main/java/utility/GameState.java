@@ -15,9 +15,10 @@ public class GameState
     public final int playerGold;
     public final int playerLevel;
     public final String playerXp;
+    public final int PlayerID;
 
     public GameState(List<Unit> playerBench, List<Unit> shopUnits, List<Unit> enemyBench,
-                     List<Unit> playerBoard, int playerGold, String playerXp, int playerLevel, int playerHp)
+                     List<Unit> playerBoard, int playerGold, String playerXp, int playerLevel, int playerHp, int PlayerID)
     {
         this.playerBench.addAll(playerBench);
         this.shopUnits.addAll(shopUnits);
@@ -27,5 +28,6 @@ public class GameState
         this.playerXp = playerXp;
         this.playerLevel = playerLevel;
         this.playerHp = playerHp;
+        this.PlayerID = PlayerID;
     }
 }
