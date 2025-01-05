@@ -546,7 +546,6 @@ public class GameController {
                 if(tmp.getPosX() == x && tmp.getPosY() == y)
                 {
                     Utmp = tmp;
-                    board.remove(tmp);
                     break;
                 }
             }

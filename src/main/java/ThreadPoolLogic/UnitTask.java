@@ -57,22 +57,29 @@ public class UnitTask implements Runnable {
             double distance = unitsUtil.calculateDistance(unit, unitsUtil.getTarget());
 
             if (distance <= unit.getAttackReach()) {
+                try {
+                    long pauseDuration = (long) Math.max(100, 1000 - (unit.getAttackSpeed() * 10));
+                    Thread.sleep(pauseDuration);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
                 FXcontroller.addTextToTextBox("Unit: " + unit.getName() + " greift die Unit: " + unitsUtil.getTarget().getName() + " an!");
                 unitsUtil.attack(unit, currentPlayer);
             } else {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
                 FXcontroller.addTextToTextBox("Unit: " + unit.getName() + " läuft auf " + unitsUtil.getTarget().getName() + " zu!");
                 unitsUtil.move(unit, currentPlayer);
             }
 
             Platform.runLater(() -> FXcontroller.update(unit));
 
-            try {
-                long pauseDuration = (long) Math.max(100, 1000 - (unit.getAttackSpeed() * 10));
-                Thread.sleep(pauseDuration);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                break;
-            }
+
 
             if (unit.getHp() <= 0) {
                 Platform.runLater(() -> FXcontroller.removeUnit(unit));

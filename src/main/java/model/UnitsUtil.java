@@ -39,13 +39,20 @@ public class UnitsUtil {
      */
     public void setNewTarget(Unit sourceUnit, Player sourcePlayer) {
         if (sourceUnit.getHp() <= 0) return;
+        Player targetPlayer = getTargetPlayer(sourcePlayer);
 
-        List<Unit> units = getTargetPlayer(sourcePlayer).getUnitsOnField();
+        System.out.println("SourcePlayer: " + sourcePlayer);
+        System.out.println("SourcePlayerUnits: " +  sourcePlayer.getUnitsOnField());
+        System.out.println("TargetPlayer: " + targetPlayer);
+        System.out.println("TargetPlayerUnits: " +  targetPlayer.getUnitsOnField());
+
+        List<Unit> units = targetPlayer.getUnitsOnField();
+        System.out.println("After getUnits onfield: : " +  units);
 
         if (!units.isEmpty()) {
-            Unit unit = units.get(new Random().nextInt(units.size()));
-            target = unit;
+            target = units.get(new Random().nextInt(units.size()));
             log("New target set at (" + target.getPosX() + ", " + target.getPosY() + ")");
+            log("Unit: " + sourceUnit.getName() + " New target is " + target.getName());
         }
     }
 
@@ -152,7 +159,10 @@ public class UnitsUtil {
      * @param sourcePlayer the player requesting the target
      * @return the enemy player
      */
-    private Player getTargetPlayer(Player sourcePlayer) {
+    private Player getTargetPlayer(Player sourcePlayer)
+    {
+        if(sourcePlayer == null) return null;
+
         return players[0] == sourcePlayer ? players[1] : players[0];
     }
 
