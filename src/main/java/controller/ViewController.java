@@ -63,8 +63,8 @@ public class ViewController implements ViewEventListener {
     }
 
     @Override
-    public void onBankInfoAction(int index) {
-        gameController.showInfoOfUnit(index, currentPlayer);
+    public void onBankInfoAction(int index, String flag) {
+        gameController.showInfoOfUnit(index, currentPlayer, flag);
     }
 
     private void handleSelection(int index, String source, String viewType) {
@@ -135,8 +135,8 @@ public class ViewController implements ViewEventListener {
         gameController.purchaseXp(currentPlayer);
     }
 
-    public void showInfoOfUnit(int UnitIndex)
+    public void showInfoOfUnit(int UnitIndex, String flag)
     {
-        gameController.showInfoOfUnit(UnitIndex, currentPlayer);
+        gameController.showInfoOfUnit(UnitIndex, currentPlayer, flag);
     }
 }

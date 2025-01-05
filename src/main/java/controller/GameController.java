@@ -11,7 +11,6 @@ import view.BattleView;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
 
 /**
  * GameController verwaltet die zentrale Spiellogik, einschließlich Spieler, Shop, Spielfeld,
@@ -513,9 +512,22 @@ public class GameController {
         updateGui();
     }
 
-    public void showInfoOfUnit(int unitIndex, Player player) {
+    public void showInfoOfUnit(int unitIndex, Player player, String flag) {
         int PlayerID = player.getPlayerID();
-        Unit InfoOfUnit = shopControllers[PlayerID].getAvailableUnits().get(unitIndex);
-        viewControllers[PlayerID].gameWindow.showInfoOfUnit(InfoOfUnit);
+        if(flag.equals("Shop"))
+        {
+            if(unitIndex >= shopControllers[PlayerID].getAvailableUnits().size())
+                return;
+
+            Unit InfoOfUnit = shopControllers[PlayerID].getAvailableUnits().get(unitIndex);
+            viewControllers[PlayerID].gameWindow.showInfoOfUnit(InfoOfUnit);
+        }
+        else if(flag.equals("Bank"))
+        {
+            if(unitIndex >= players[PlayerID].getBankUnits().size())
+                return;
+
+            viewControllers[PlayerID].gameWindow.showInfoOfUnit(players[PlayerID].getBankUnits().get(unitIndex));
+        }
     }
 }

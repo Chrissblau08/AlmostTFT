@@ -39,7 +39,7 @@ public class BankView extends HBox {
                 }
                 else if (event.getButton() == MouseButton.SECONDARY)
                 {
-                    eventListener.onBankInfoAction(index);
+                    eventListener.onBankInfoAction(index, "Bank");
                 }
             });
             getChildren().add(slots[i]); // Füge jeden Slot zur VBox hinzu

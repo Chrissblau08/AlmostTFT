@@ -130,7 +130,7 @@ public class ShopView extends VBox {
                 }
                 else if (event.getButton() == MouseButton.SECONDARY)
                 {
-                    viewController.showInfoOfUnit(index);
+                    viewController.showInfoOfUnit(index, "Shop");
                 }
             });
 
