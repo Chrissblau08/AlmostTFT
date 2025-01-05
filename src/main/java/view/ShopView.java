@@ -20,6 +20,7 @@ public class ShopView extends VBox {
     private Label goldLabel;              // Anzeige für das aktuelle Gold
     private HBox unitDisplayArea;         // HBox zur Anzeige der Einheiten nebeneinander
     private Button buyButton;             // Button zum Kauf der ausgewählten Einheit
+    private Button sellButton;
     private Button refreshButton;
     private Button btn_purchaseXp;
     private int selectedIndex = -1;       // Index der ausgewählten Einheit
@@ -68,6 +69,7 @@ public class ShopView extends VBox {
 
         // Buttons für Shop-Interaktionen
         buyButton = new Button("Kaufen");
+        sellButton = new Button("Kaufen");
 
         HBox menu = new HBox(buyButton);
         menu.setAlignment(Pos.CENTER);
@@ -78,6 +80,10 @@ public class ShopView extends VBox {
                 viewController.buyUnitOnIndex(getSelectedUnitIndex());
                 selectedIndex = -1;
             }
+        });
+
+        sellButton.setOnAction(_ -> {
+
         });
 
         refreshButton.setOnAction(_ -> {
