@@ -5,6 +5,7 @@ import listener.ViewEventListener;
 import model.Player;
 import model.Unit;
 import utility.GameState;
+import view.BankView;
 import view.GameWindow;
 
 import java.util.ArrayList;
@@ -138,5 +139,14 @@ public class ViewController implements ViewEventListener {
     public void showInfoOfUnit(int UnitIndex, String flag)
     {
         gameController.showInfoOfUnit(UnitIndex, currentPlayer, flag);
+    }
+
+    public void sellUnit() {
+        BankView bank = gameWindow.getBankView();
+        int SelectedIndex = bank.getClickedIndex();
+
+        if(SelectedIndex == -1) return;
+
+        gameController.sellUnit(currentPlayer, SelectedIndex);
     }
 }
