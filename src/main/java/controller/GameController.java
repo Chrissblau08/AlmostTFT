@@ -2,14 +2,22 @@ package controller;
 
 import ThreadPoolLogic.ThreadPool;
 import ThreadPoolLogic.UnitTask;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.*;
 import utility.GameState;
 import view.BattleView;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -445,8 +453,12 @@ public class GameController {
                 }
 
             } finally {
-                // Zustandsvariable zurücksetzen (falls nötig für nächste Runde)
-                //roundEndedCalled.set(false);
+                Player death = gameOver();
+                if(death == players[0] ){
+                //    viewControllers[0].gameWindow.
+                } else if (death == players[1]) {
+
+                }
             }
         }
     }
@@ -616,5 +628,13 @@ public class GameController {
             System.out.println("Verkauf war erfolgreich!");
             updateGui();
         }
+    }
+
+    public Player gameOver() {
+        for (Player player : players) {
+            if (player.getHealth() <= 0)
+                return player;
+        }
+        return null;
     }
 }
