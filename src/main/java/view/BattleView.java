@@ -125,7 +125,7 @@ public class BattleView extends BorderPane {
     private StackPane createUnitPane(Unit unit) {
         StackPane unitPane = new StackPane();
         unitPane.setPrefSize(50, 50);
-        unitPane.getChildren().addAll(createHpBar(unit), createSprite());
+        unitPane.getChildren().addAll(createHpBar(unit), createSprite(unit));
         grid.add(unitPane, unit.getPosX(), unit.getPosY());
         return unitPane;
     }
@@ -137,8 +137,8 @@ public class BattleView extends BorderPane {
         return hpBar;
     }
 
-    private ImageView createSprite() {
-        ImageView sprite = new ImageView(new Image(getClass().getResourceAsStream("/sprites/pikachu.png")));
+    private ImageView createSprite(Unit unit) {
+        ImageView sprite = new ImageView(new Image(getClass().getResourceAsStream("/sprites/" + unit.getId() + ".png")));
         sprite.setFitWidth(40);
         sprite.setFitHeight(40);
         return sprite;

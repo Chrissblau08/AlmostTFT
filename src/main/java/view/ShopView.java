@@ -108,7 +108,7 @@ public class ShopView extends VBox {
             Unit unit = units.get(i);
 
             // Normale Karte für eine verfügbare Einheit
-            ImageView unitSprite = new ImageView(new Image(getClass().getResourceAsStream("/sprites/Pikachu.png")));
+            ImageView unitSprite = new ImageView(new Image(getClass().getResourceAsStream("/sprites/" + unit.getId() + ".png")));
             unitSprite.setFitWidth(50);
             unitSprite.setFitHeight(50);
 

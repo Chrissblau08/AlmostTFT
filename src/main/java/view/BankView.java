@@ -99,8 +99,8 @@ public class BankView extends HBox {
         // Füge die Sprites für die Einheiten zu den Slots hinzu
         for (int i = 0; i < units.size() && i < MAX_SLOTS; i++) {
             Unit unit = units.get(i);
-            //ImageView unitSprite = new ImageView(new Image(getClass().getResourceAsStream("/sprites/" + unit.getName())));
-            ImageView unitSprite = new ImageView(new Image(getClass().getResourceAsStream("/sprites/pikachu.png")));
+            ImageView unitSprite = new ImageView(new Image(getClass().getResourceAsStream("/sprites/" + unit.getId() + ".png")));
+            //ImageView unitSprite = new ImageView(new Image(getClass().getResourceAsStream("/sprites/pikachu.png")));
             unitSprite.setFitWidth(80); // Breite des Sprites anpassen
             unitSprite.setFitHeight(80); // Höhe des Sprites anpassen
             slots[i].getChildren().add(unitSprite); // Füge das Sprite dem Slot hinzu

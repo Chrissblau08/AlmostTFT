@@ -70,7 +70,7 @@ public class GameWindow extends BorderPane {
         topPanel.setAlignment(Pos.CENTER_LEFT);
 
         Button helpButton = new Button("Help");
-        helpButton.setOnAction(_ -> {
+        helpButton.setOnAction(_Event -> {
             GameRulesAlert gameRulesAlert = new GameRulesAlert();
             gameRulesAlert.showAndWait();
         });

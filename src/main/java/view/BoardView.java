@@ -109,7 +109,7 @@ public class BoardView extends Pane {
 
     private StackPane createUnitPane(Unit unit)
     {
-        ImageView unitSprite = new ImageView(new Image(getClass().getResourceAsStream("/sprites/pikachu.png")));
+        ImageView unitSprite = new ImageView(new Image(getClass().getResourceAsStream("/sprites/" + unit.getId() + ".png")));
         unitSprite.setFitWidth(40);
         unitSprite.setFitHeight(40);
 

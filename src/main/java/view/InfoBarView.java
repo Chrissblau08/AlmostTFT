@@ -72,7 +72,7 @@ public class InfoBarView extends GridPane {
         }
 
         // Setze das Bild der Einheit
-        Image image = new Image(getClass().getResourceAsStream("/sprites/pikachu.png")); // Bildpfad anpassen
+        Image image = new Image(getClass().getResourceAsStream("/sprites/" + unit.getId() + ".png")); // Bildpfad anpassen
         unitImage.setImage(image);
 
         // Aktualisiere die Textwerte
