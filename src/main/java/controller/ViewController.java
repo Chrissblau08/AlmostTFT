@@ -1,5 +1,7 @@
 package controller;
 
+import alert.LoserAlert;
+import alert.WinnerAlert;
 import javafx.util.Pair;
 import listener.ViewEventListener;
 import model.Player;
@@ -139,6 +141,19 @@ public class ViewController implements ViewEventListener {
     public void showInfoOfUnit(int UnitIndex, String flag)
     {
         gameController.showInfoOfUnit(UnitIndex, currentPlayer, flag);
+    }
+
+    public void setAlert(String Flag, int playerID) {
+        if(Flag.equals("Loss"))
+        {
+            LoserAlert alert = new LoserAlert(playerID);
+            alert.showAndWait();
+        }
+        else
+        {
+            WinnerAlert alert = new WinnerAlert(playerID);
+            alert.showAndWait();
+        }
     }
 
     public void sellUnit() {

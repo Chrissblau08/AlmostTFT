@@ -2,20 +2,13 @@ package controller;
 
 import ThreadPoolLogic.ThreadPool;
 import ThreadPoolLogic.UnitTask;
-import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import model.*;
 import utility.GameState;
 import view.BattleView;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -26,7 +19,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class GameController {
 
-    final long sixtySecondsTimer = 10 * 1000L; // 60 Sekunden in Millisekunden
+    long sixtySecondsTimer = 10 * 1000L; // 60 Sekunden in Millisekunden
     BattleView battleView = new BattleView();
     private static final int PLAYER_COUNT = 2;
     private Player[] players = new Player[PLAYER_COUNT];
@@ -452,13 +445,26 @@ public class GameController {
                     resetForNextRound();
                 }
 
-            } finally {
+            } finally
+            {
                 Player death = gameOver();
-                if(death == players[0] ){
-                //    viewControllers[0].gameWindow.
-                } else if (death == players[1]) {
 
+                if(death != null)
+                {
+                    Platform.runLater(() -> {
+                        if(death == players[0] )
+                        {
+                            viewControllers[0].setAlert("Loss", 0);
+                            viewControllers[1].setAlert("Win", 1);
+                        }
+                        else if (death == players[1])
+                        {
+                            viewControllers[1].setAlert("Loss", 1);
+                            viewControllers[0].setAlert("Win", 0);
+                        }
+                    });
                 }
+                sixtySecondsTimer = Long.MAX_VALUE;
             }
         }
     }
