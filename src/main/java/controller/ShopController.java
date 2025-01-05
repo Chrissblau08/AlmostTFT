@@ -18,8 +18,13 @@ public class ShopController {
     }
 
     public void refreshShop() {
-        shop.refreshShop();
-        System.out.println("Shop refreshed for player " + player.getPlayerID());
+        if (player.getGold() >= 2) {
+            shop.refreshShop();
+            System.out.println("Shop refreshed for player " + player.getPlayerID());
+            player.setGold(player.getGold() - 2);
+        } else {
+            System.out.println("Not enough gold to Refresh.");
+        }
     }
 
     public List<Unit> getAvailableUnits() {
