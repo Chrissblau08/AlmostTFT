@@ -56,8 +56,8 @@ public class RundenAblaufTest extends Application
 
         // Erstelle View und GameController
         viewControllers = new ViewController[2];
-        viewControllers[0] = new ViewController();
-        viewControllers[1] = new ViewController();
+        viewControllers[0] = new ViewController(0);
+        viewControllers[1] = new ViewController(1);
         gameController = new GameController(unitPool, viewControllers);
 
         // Initialisiere das Spielfeld (Board), Spieler und deren Einheiten

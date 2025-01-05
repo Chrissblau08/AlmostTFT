@@ -29,8 +29,9 @@ public class ShopView extends VBox {
     private Label hpLabel;                // Label zur Anzeige der HP
     private Label XpLabelProgress;       // Xp Label
     private Label XpLabelLevel;
+    private HBox mainLayout;
 
-    public ShopView(ViewController viewController) {
+    public ShopView(ViewController viewController, int GameSessionID) {
         this.viewController = viewController;
         // Layout-Grundeinstellungen
         setSpacing(10);
@@ -40,7 +41,10 @@ public class ShopView extends VBox {
         goldLabel = new Label("Gold: ");
 
         // Player-HP-Bereich
-        playerHpImageView = new ImageView(new Image(getClass().getResourceAsStream("/sprites/Pikachu.png")));
+        if(GameSessionID == 0){
+            playerHpImageView = new ImageView(new Image(getClass().getResourceAsStream("/sprites/Pikachu.png")));
+        }else
+            playerHpImageView = new ImageView(new Image(getClass().getResourceAsStream("/sprites/Pikachu2.png")));
         playerHpImageView.setFitWidth(50);
         playerHpImageView.setFitHeight(50);
 
@@ -86,7 +90,7 @@ public class ShopView extends VBox {
         });
 
         // Hauptlayout erstellen
-        HBox mainLayout = new HBox(20, playerHpBox, buttonBox, new VBox(goldLabel, unitDisplayArea, menu));
+        mainLayout = new HBox(20, playerHpBox, buttonBox, new VBox(goldLabel, unitDisplayArea, menu));
         mainLayout.setAlignment(Pos.CENTER);
         //mainLayout.setSpacing(300);
 
@@ -206,17 +210,5 @@ public class ShopView extends VBox {
     public void setXpVals(String progress, int level) {
         XpLabelProgress.setText(progress);
         XpLabelLevel.setText(Integer.toString(level));
-    }
-
-    public void setPlayerFaces(int PlayerIndex)
-    {
-        if(PlayerIndex == -1) return;
-
-        if(PlayerIndex == 0)
-            playerHpImageView = new ImageView(new Image(getClass().getResourceAsStream("/sprites/Pikachu.png")));
-        else
-            playerHpImageView = new ImageView(new Image(getClass().getResourceAsStream("/sprites/Pikachu2.png")));
-        playerHpImageView.setFitWidth(50);
-        playerHpImageView.setFitHeight(50);
     }
 }

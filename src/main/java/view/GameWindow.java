@@ -35,10 +35,10 @@ public class GameWindow extends BorderPane {
 
     Timeline timeline;
 
-    public GameWindow(ViewController viewController) {
+    public GameWindow(ViewController viewController, int GameSessionID) {
         this.viewController = viewController;
         boardView = new BoardView();
-        shopView = new ShopView(this.viewController);
+        shopView = new ShopView(this.viewController, GameSessionID);
         bankView = new BankView();
         bankViewEnemy = new BankView();
         infoBarView = new InfoBarView();
@@ -167,7 +167,6 @@ public class GameWindow extends BorderPane {
         shopView.setPlayerHp(gameState.playerHp);
         shopView.setXpVals(gameState.playerXp, gameState.playerLevel);
         shopView.setGold(gameState.playerGold);
-        shopView.setPlayerFaces(gameState.PlayerID);
 
         //todo -Bugs?
         bankViewEnemy.update(gameState.enemyBench);
