@@ -18,8 +18,8 @@ public class ViewController implements ViewEventListener {
 
     private List<Pair<Integer, String>> selectionList = new ArrayList<>();
 
-    public ViewController() {
-        this.gameWindow = new GameWindow(this);
+    public ViewController(int GameSessionID) {
+        this.gameWindow = new GameWindow(this, GameSessionID);
         gameWindow.getBoardView().setEventListener(this);
         gameWindow.getBankView().setEventListener(this);
     }
