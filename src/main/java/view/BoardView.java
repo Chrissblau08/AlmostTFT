@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -60,8 +61,15 @@ public class BoardView extends Pane {
 
     private EventHandler<MouseEvent> createCellClickHandler(int index) {
         return mouseEvent -> {
-            clickedIndex = index;
-            eventListener.onBoardCellSelected(clickedIndex, "Board");
+
+            if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                clickedIndex = index;
+                eventListener.onBoardCellSelected(clickedIndex, "Board");
+            }
+            else if (mouseEvent.getButton() == MouseButton.SECONDARY)
+            {
+                eventListener.onBankInfoAction(index, "Board");
+            }
         };
     }
 

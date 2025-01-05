@@ -529,5 +529,29 @@ public class GameController {
 
             viewControllers[PlayerID].gameWindow.showInfoOfUnit(players[PlayerID].getBankUnits().get(unitIndex));
         }
+        else if(flag.equals("Board"))
+        {
+            if(unitIndex >= 10*10)
+                return;
+
+            List<Unit> board = players[PlayerID].getUnitsOnField();
+
+            int x = unitIndex % 10;
+            int y = unitIndex / 10;
+
+            Unit Utmp = null;
+            for(Unit tmp : board)
+            {
+                if(tmp.getPosX() == x && tmp.getPosY() == y)
+                {
+                    Utmp = tmp;
+                    board.remove(tmp);
+                    break;
+                }
+            }
+            if(Utmp == null) return;
+
+            viewControllers[PlayerID].gameWindow.showInfoOfUnit(Utmp);
+        }
     }
 }
