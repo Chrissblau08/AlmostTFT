@@ -105,5 +105,11 @@ public class BankView extends HBox {
             unitSprite.setFitHeight(80); // Höhe des Sprites anpassen
             slots[i].getChildren().add(unitSprite); // Füge das Sprite dem Slot hinzu
         }
+
+        clickedIndex = -1;
+    }
+
+    public int getClickedIndex() {
+        return clickedIndex;
     }
 }

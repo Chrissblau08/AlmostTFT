@@ -46,3 +46,5 @@ target/classes/listener/ViewEventListener.class
 target/classes/module-info.class
 target/classes/view/BankView.class
 target/classes/view/ShopView.class
+target/classes/controller/ViewController.class
+/target/

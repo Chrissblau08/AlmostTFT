@@ -120,6 +120,18 @@ public class Player {
         }
     }
 
+    public boolean removeUnitFromBank(Unit unitToSell) {
+        if (unitsOnBank.contains(unitToSell)) {
+            unitsOnBank.remove(unitToSell);
+            System.out.println("Unit " + unitToSell.getName() + " wurde erfolgreich aus der Bank entfernt.");
+            return true;
+        } else {
+            System.out.println("Unit " + unitToSell.getName() + " konnte nicht gefunden werden.");
+            return false;
+        }
+    }
+
+
     // Method to remove a unit from the bank and add it to the field
     public void moveUnitFromBankToField(Unit unit) {
         if (unitsOnBank.contains(unit)) {

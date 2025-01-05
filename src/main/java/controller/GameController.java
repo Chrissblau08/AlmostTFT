@@ -554,4 +554,18 @@ public class GameController {
             viewControllers[PlayerID].gameWindow.showInfoOfUnit(Utmp);
         }
     }
+
+    public void sellUnit(Player currentPlayer, int selectedIndex) {
+        if(selectedIndex >= currentPlayer.getBankUnitsCount())
+            return;
+
+        List<Unit> bankUnits = currentPlayer.getBankUnits();
+        int PlayerID = currentPlayer.getPlayerID();
+
+        if(shopControllers[PlayerID].sellUnit(bankUnits.get(selectedIndex).getId()))
+        {
+            System.out.println("Verkauf war erfolgreich!");
+            updateGui();
+        }
+    }
 }

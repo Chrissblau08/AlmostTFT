@@ -86,6 +86,36 @@ public class ShopController {
         }
     }
 
+    public boolean sellUnit(int unitId) {
+        // Suche die Unit im Bank des Spielers
+        Unit unitToSell = player.getBankUnits().stream()
+                .filter(unit -> unit.getId() == unitId)
+                .findFirst()
+                .orElse(null);
+
+        if (unitToSell == null) {
+            System.out.println("Unit not found in player's bank.");
+            return false;
+        }
+
+        // Füge Gold zum Spieler hinzu
+        int sellPrice = unitToSell.getCost();
+        player.setGold(player.getGold() + sellPrice);
+
+        // Entferne die Unit aus der Bank
+        boolean removed = player.removeUnitFromBank(unitToSell);
+        if (removed) {
+            System.out.println("Player " + player.getPlayerID() + " successfully sold unit: " + unitToSell.getName() + " for " + sellPrice + " gold.");
+            return true;
+        } else {
+            System.out.println("Failed to remove unit from player's bank.");
+            // Wenn die Unit nicht entfernt werden konnte, kein Gold hinzufügen
+            player.setGold(player.getGold() - sellPrice);
+            return false;
+        }
+    }
+
+
     public boolean isBenchFull() {
         return player.getBankUnitsCount() >= 10;
     }

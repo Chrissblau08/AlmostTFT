@@ -69,9 +69,9 @@ public class ShopView extends VBox {
 
         // Buttons für Shop-Interaktionen
         buyButton = new Button("Kaufen");
-        sellButton = new Button("Kaufen");
+        sellButton = new Button("Verkaufen");
 
-        HBox menu = new HBox(buyButton);
+        HBox menu = new HBox(buyButton, sellButton);
         menu.setAlignment(Pos.CENTER);
 
         // Shop-Aktionen verbinden
@@ -83,7 +83,7 @@ public class ShopView extends VBox {
         });
 
         sellButton.setOnAction(_ -> {
-
+            viewController.sellUnit();
         });
 
         refreshButton.setOnAction(_ -> {
