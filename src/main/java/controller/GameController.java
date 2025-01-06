@@ -116,53 +116,73 @@ public class GameController {
     }
 
     private void checkforUpgrades(Player player) {
-        if(phase == Phase.Battle) return;
+        if (phase == Phase.Battle) return;
 
         List<Unit> bank = player.getBankUnits();
         List<Unit> board = player.getUnitsOnField();
 
-        List<Unit> AllUnits = new ArrayList<>();
-        AllUnits.addAll(bank);
-        AllUnits.addAll(board);
+        // Kombiniere alle Einheiten
+        List<Unit> allUnits = new ArrayList<>();
+        allUnits.addAll(bank);
+        allUnits.addAll(board);
 
+        // Gruppen nach ID und Stern-Level
         HashMap<Integer, HashMap<Integer, List<Unit>>> groupedUnits = new HashMap<>();
-
-
-        for (Unit unit : AllUnits) {
-
-            if(unit.getStarLevel() <3) {
-                int unitID = unit.getId();
-                int starLevel = unit.getStarLevel();
-
-            groupedUnits
-                    .computeIfAbsent(unitID, k -> new HashMap<>())
-                    .computeIfAbsent(starLevel, k -> new ArrayList<>())
-                    .add(unit);
+        for (Unit unit : allUnits) {
+            if (unit.getStarLevel() < 3) {
+                groupedUnits
+                        .computeIfAbsent(unit.getId(), k -> new HashMap<>())
+                        .computeIfAbsent(unit.getStarLevel(), k -> new ArrayList<>())
+                        .add(unit);
             }
         }
 
-        for (Map.Entry<Integer, HashMap<Integer, List<Unit>>> entry : groupedUnits.entrySet()) {
-            int unitID = entry.getKey();
-            HashMap<Integer, List<Unit>> starLevelGroups = entry.getValue();
+        // Iterative Verarbeitung
+        boolean upgraded;
+        do {
+            upgraded = false;
 
-            for (Map.Entry<Integer, List<Unit>> starEntry : starLevelGroups.entrySet()) {
-                int starLevel = starEntry.getKey();
-                List<Unit> units = starEntry.getValue();
+            for (Map.Entry<Integer, HashMap<Integer, List<Unit>>> entry : groupedUnits.entrySet()) {
+                int unitID = entry.getKey();
+                HashMap<Integer, List<Unit>> starLevelGroups = entry.getValue();
 
+                for (Map.Entry<Integer, List<Unit>> starEntry : starLevelGroups.entrySet()) {
+                    int starLevel = starEntry.getKey();
+                    List<Unit> units = starEntry.getValue();
 
-                if (units.size() >= 2) {
+                    if (units.size() >= 2) {
 
-                    bank.removeIf(unit -> unit.getId() == unitID && unit.getStarLevel() == starLevel);
-                    board.removeIf(unit -> unit.getId() == unitID && unit.getStarLevel() == starLevel);
+                        bank.removeIf(unit -> unit.getId() == unitID && unit.getStarLevel() == starLevel);
+                        board.removeIf(unit -> unit.getId() == unitID && unit.getStarLevel() == starLevel);
 
-                    Unit tmp = units.getFirst();
-                    tmp.starUpUnit();
-                    bank.add(tmp);
+                        Unit tmp = units.getFirst(); // Nimm die erste Einheit
+                        tmp.starUpUnit();
 
-                    checkforUpgrades(player);
+                        // Neue Einheit zur Bank hinzufügen
+                        bank.add(tmp);
+
+                        // Gruppen nach Upgrade aktualisieren
+                        groupedUnits.clear();
+                        allUnits.clear();
+                        allUnits.addAll(bank);
+                        allUnits.addAll(board);
+
+                        for (Unit updatedUnit : allUnits) {
+                            if (updatedUnit.getStarLevel() < 3) {
+                                groupedUnits
+                                        .computeIfAbsent(updatedUnit.getId(), k -> new HashMap<>())
+                                        .computeIfAbsent(updatedUnit.getStarLevel(), k -> new ArrayList<>())
+                                        .add(updatedUnit);
+                            }
+                        }
+
+                        upgraded = true;
+                        break;
+                    }
                 }
+                if (upgraded) break;
             }
-        }
+        } while (upgraded);
     }
 
 
@@ -274,6 +294,8 @@ public class GameController {
      */
     public void moveFromBankToBoard(int firstSelectedIndex, int secondSelection, Player currentPlayer) {
         int PlayerID = currentPlayer.getPlayerID();
+
+        if(phase == Phase.Battle) return;
 
         List<Unit> board = players[PlayerID].getUnitsOnField();
         List<Unit> bank = players[PlayerID].getBankUnits();
