@@ -63,7 +63,7 @@ public class GameController {
      */
     public void setPlayersAndShops() {
         for (int i = 0; i < PLAYER_COUNT; i++) {
-            players[i] = new Player(i, 100, 1, 0, 1000); // Example initialization values
+            players[i] = new Player(i, 100, 1, 0, 10); // Example initialization values
             shopControllers[i] = new ShopController(players[i], unitPool); // Initialize ShopController with Player and UnitPool
         }
     }
@@ -501,6 +501,7 @@ public class GameController {
                             viewControllers[0].setAlert("Win", 0);
                         }
                     });
+                    sixtySecondsTimer = Long.MAX_VALUE;
                 }
             }
         }
