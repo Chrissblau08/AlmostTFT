@@ -171,5 +171,6 @@ public class Unit {
         attack *= percentage;
         defense *= percentage;
         attackSpeed *= percentage;
+        cost *= starLevel;
     }
 }
