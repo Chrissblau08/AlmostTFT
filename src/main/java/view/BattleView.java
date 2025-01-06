@@ -154,6 +154,9 @@ public class BattleView extends BorderPane {
             starLevelImage = createImageView("threestar");
         }
 
+        // Füge das Sprite der Einheit zum StackPane hinzu
+        spritePane.getChildren().add(sprite);
+
         // Füge das StarLevel Image hinzu, wenn es existiert
         if (starLevelImage != null) {
             starLevelImage.setFitWidth(20);
@@ -162,8 +165,7 @@ public class BattleView extends BorderPane {
             spritePane.getChildren().add(starLevelImage);
         }
 
-        // Füge das Sprite der Einheit zum StackPane hinzu
-        spritePane.getChildren().add(sprite);
+
 
         return spritePane;
     }

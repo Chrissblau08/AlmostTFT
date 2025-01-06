@@ -126,6 +126,9 @@ public class BoardView extends Pane {
             starLevelImage = createImageView("threestar");
         }
 
+        // Füge das Unit Sprite zur UnitPane hinzu
+        unitPane.getChildren().add(unitSpriteImage);
+
         // Füge das StarLevel Image hinzu, falls es existiert
         if (starLevelImage != null) {
             starLevelImage.setFitWidth(20);
@@ -134,8 +137,7 @@ public class BoardView extends Pane {
             unitPane.getChildren().add(starLevelImage);
         }
 
-        // Füge das Unit Sprite zur UnitPane hinzu
-        unitPane.getChildren().add(unitSpriteImage);
+
 
         // Füge die UnitPane zum Grid hinzu
         grid.add(unitPane, unit.getPosX(), unit.getPosY());
