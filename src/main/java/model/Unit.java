@@ -159,13 +159,14 @@ public class Unit {
 
     private void upgradeStats() {
         if (starLevel == 2) {
-            upgradeByPercentage(1.25); // 1.25-fache Steigerung für 2-Stern-Upgrades
+            upgradeByPercentage(1.25);
         } else if (starLevel == 3) {
-            upgradeByPercentage(2); // Verdopplung für 3-Stern-Upgrades
+            upgradeByPercentage(2);
         }
     }
 
     private void upgradeByPercentage(double percentage) {
+        MaxHp *= percentage;
         hp *= percentage;
         attack *= percentage;
         defense *= percentage;

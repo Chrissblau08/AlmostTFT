@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.*;
 import utility.GameState;
+import utility.Phase;
 import view.BattleView;
 
 import java.util.*;
@@ -28,6 +29,8 @@ public class GameController {
     private final AtomicBoolean roundEndedCalled = new AtomicBoolean(false);
     private ThreadPool[] threadPools;
     private Map<UUID, int[]> unitPositions = new HashMap<>();
+
+    private Phase phase = Phase.Shopping;
 
     private ViewController[] viewControllers;
     private UnitsUtil unitsUtil;
@@ -113,6 +116,8 @@ public class GameController {
     }
 
     private void checkforUpgrades(Player player) {
+        if(phase == Phase.Battle) return;
+
         List<Unit> bank = player.getBankUnits();
         List<Unit> board = player.getUnitsOnField();
 
@@ -363,7 +368,6 @@ public class GameController {
             }
         }
 
-        // Einheiten kämpfen lassen
         for (Unit unit : boardPlayer) {
             UnitTask playerTask = new UnitTask(
                     unit,
@@ -375,6 +379,7 @@ public class GameController {
         }
 
         battleView.setTotalDuration(sixtySecondsTimer);
+        phase = Phase.Battle;
     }
 
     // Speichert die Positionen aller Einheiten
@@ -543,10 +548,12 @@ public class GameController {
     private void resetForNextRound() {
         Platform.runLater(() -> {
             restoreUnitPositions();
+            phase = Phase.Shopping;
             for (Player player : players) {
                 player.getUnitsOnField().forEach(Unit::resetForNextRound);
                 viewControllers[player.getPlayerID()].increaseLevel();
                 refreshShop(player);
+                checkforUpgrades(player);
             }
 
             clearBattleView();
