@@ -32,7 +32,7 @@ public class ShopController {
     }
 
     public boolean purchaseXP() {
-        if (player.getGold() >= 4) {
+        if (player.getGold() >= 4 && player.getLevel() < 10) {
             player.setGold(player.getGold() - 4);
             player.addXP(4);
             return true;

@@ -124,13 +124,16 @@ public class GameController {
 
 
         for (Unit unit : AllUnits) {
-            int unitID = unit.getId();
-            int starLevel = unit.getStarLevel();
+
+            if(unit.getStarLevel() <3) {
+                int unitID = unit.getId();
+                int starLevel = unit.getStarLevel();
 
             groupedUnits
                     .computeIfAbsent(unitID, k -> new HashMap<>())
                     .computeIfAbsent(starLevel, k -> new ArrayList<>())
                     .add(unit);
+            }
         }
 
         for (Map.Entry<Integer, HashMap<Integer, List<Unit>>> entry : groupedUnits.entrySet()) {
@@ -423,11 +426,15 @@ public class GameController {
                     handleHealthReduction(loserIndex);
                     handleHealthReduction(enemyIndex);
 
-                    players[enemyIndex].addXP(2);
+                    if(players[enemyIndex].level < 10) {
+                        players[enemyIndex].addXP(2);
+                    }
                     players[enemyIndex].gold += 3;
                     players[enemyIndex].setWinStreak(0);
 
-                    players[loserIndex].addXP(2);
+                    if(players[loserIndex].level < 10) {
+                        players[loserIndex].addXP(2);
+                    }
                     players[loserIndex].gold += 3;
                     players[loserIndex].setWinStreak(0);
 
@@ -464,7 +471,6 @@ public class GameController {
                         }
                     });
                 }
-                sixtySecondsTimer = Long.MAX_VALUE;
             }
         }
     }
@@ -509,8 +515,12 @@ public class GameController {
         winner.gold += 7;
         loser.gold += 3;
 
-        winner.addXP(2);
-        loser.addXP(2);
+        if(winner.level < 10) {
+            winner.addXP(2);
+        }
+        if(winner.level < 10) {
+            loser.addXP(2);
+        }
     }
 
     // Methode zur Gesundheitsreduktion

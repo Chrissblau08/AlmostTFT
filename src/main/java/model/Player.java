@@ -17,7 +17,7 @@ public class Player {
     private List<Unit> unitsOnField;
     private List<Unit> unitsOnBank;
 
-    public static final int[] LEVEL_UP_XP_REQUIREMENTS = {0, 2, 4, 6, 10, 20, 36, 48, 72, 84};
+    public static final int[] LEVEL_UP_XP_REQUIREMENTS = {0, 2, 4, 6, 10, 20, 36, 48, 72, 84, 1000};
 
 
     public Player(int playerID, int initalHealth, int initalLevel, int initalXP, int initalGold){
