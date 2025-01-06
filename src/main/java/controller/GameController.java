@@ -578,17 +578,34 @@ public class GameController {
         {
             int PlayerEnemyID = (i == 0) ? 1 : 0;
 
-            viewControllers[i].updateGameWindow(new GameState(
-                    players[i].getBankUnits(),
-                    shopControllers[i].getAvailableUnits(),
-                    players[PlayerEnemyID].getBankUnits(),
-                    players[i].getUnitsOnField(),
-                    players[i].getGold(),
-                    players[i].getXp() + "/" + Player.LEVEL_UP_XP_REQUIREMENTS[players[i].getLevel()],
-                    players[i].getLevel(),
-                    players[i].getHealth(),
-                    i
-            ));
+            if(phase == Phase.Shopping)
+            {
+                viewControllers[i].updateGameWindow(new GameState(
+                        players[i].getBankUnits(),
+                        shopControllers[i].getAvailableUnits(),
+                        players[PlayerEnemyID].getBankUnits(),
+                        players[i].getUnitsOnField(),
+                        players[i].getGold(),
+                        players[i].getXp() + "/" + Player.LEVEL_UP_XP_REQUIREMENTS[players[i].getLevel()],
+                        players[i].getLevel(),
+                        players[i].getHealth(),
+                        i
+                ));
+            }
+            else {
+                viewControllers[i].updateGameWindow(new GameState(
+                        players[i].getBankUnits(),
+                        shopControllers[i].getAvailableUnits(),
+                        players[PlayerEnemyID].getBankUnits(),
+                        new ArrayList<Unit>(),
+                        players[i].getGold(),
+                        players[i].getXp() + "/" + Player.LEVEL_UP_XP_REQUIREMENTS[players[i].getLevel()],
+                        players[i].getLevel(),
+                        players[i].getHealth(),
+                        i
+                ));
+            }
+
         }
     }
 

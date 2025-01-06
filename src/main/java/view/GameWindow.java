@@ -162,7 +162,9 @@ public class GameWindow extends BorderPane {
 
     public void updateGameWindow(GameState gameState) {
         bankView.update(gameState.playerBench);
-        boardView.update(gameState.playerBoard);
+
+        if(!gameState.playerBoard.isEmpty())
+            boardView.update(gameState.playerBoard);
         shopView.setAvailableUnits(gameState.shopUnits);
         shopView.setPlayerHp(gameState.playerHp);
         shopView.setXpVals(gameState.playerXp, gameState.playerLevel);
