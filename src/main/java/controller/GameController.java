@@ -279,7 +279,11 @@ public class GameController {
         int x = secondSelection % 10;
         int y = secondSelection / 10;
 
-        Unit tmp =  bank.get(firstSelectedIndex);
+        if (board.stream().anyMatch(u -> u.getPosX() == x && u.getPosY() == y)) {
+            return;
+        }
+
+        Unit tmp = bank.get(firstSelectedIndex);
         tmp.setPosX(x);
         tmp.setPosY(y);
         board.add(tmp);
