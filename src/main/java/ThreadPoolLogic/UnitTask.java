@@ -43,7 +43,6 @@ public class UnitTask implements Runnable {
         while (unit.getHp() > 0) {
             if (unit.getHp() <= 0) {
                 Platform.runLater(() -> FXcontroller.removeUnit(unit));
-                Thread.currentThread().interrupt();
                 break;
             }
             if (unitsUtil.getTarget(unit) == null || unitsUtil.getTarget(unit).getHp() <= 0) {
@@ -77,14 +76,13 @@ public class UnitTask implements Runnable {
                 unitsUtil.move(unit, currentPlayer);
             }
 
-            Platform.runLater(() -> FXcontroller.update(unit));
-
-
-
             if (unit.getHp() <= 0) {
                 Platform.runLater(() -> FXcontroller.removeUnit(unit));
-                Thread.currentThread().interrupt();
                 break;
+            }
+            else
+            {
+                Platform.runLater(() -> FXcontroller.update(unit));
             }
         }
     }
