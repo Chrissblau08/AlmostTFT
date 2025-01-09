@@ -10,6 +10,7 @@ import utility.GameState;
 import utility.Phase;
 import view.BattleView;
 
+import java.nio.file.ClosedWatchServiceException;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -541,11 +542,16 @@ public class GameController {
 
         // Gewinnen/Verlieren-Streaks
         winner.setWinStreak(winner.getWinStreak() + 1);
+        winner.setLossStreak(0);
+
+        loser.setLossStreak(loser.getLossStreak() + 1);
         loser.setWinStreak(0);
 
+        caculateEarnings(winner);
+        caculateEarnings(loser);
         // Belohnungen
-        winner.gold += 7;
-        loser.gold += 3;
+        winner.gold += 6;
+        loser.gold += 4;
 
         if(winner.level < 10) {
             winner.addXP(2);
@@ -703,5 +709,36 @@ public class GameController {
                 return player;
         }
         return null;
+    }
+
+    public void caculateEarnings(Player currentPlayer){
+        if(currentPlayer == null) return;
+        int currentGold = currentPlayer.getGold();
+
+        //interest
+        int interest = currentGold / 10;
+        currentGold += interest;
+
+        //streak
+        int winstreak = currentPlayer.getWinStreak();
+        int losestreak = currentPlayer.getLossStreak();
+
+        currentGold = streaks(currentGold, winstreak);
+        currentGold = streaks(currentGold, losestreak);
+
+        currentPlayer.setGold(currentGold);
+    }
+
+    private int streaks(int currentGold, int streaks) {
+        switch (streaks) {
+            case 3: currentGold += 1; break;
+            case 4: currentGold += 2; break;
+            default:
+                if (streaks >= 5) {
+                    currentGold += 3;
+                }
+                break;
+        }
+        return currentGold;
     }
 }
