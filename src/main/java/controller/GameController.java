@@ -618,7 +618,9 @@ public class GameController {
                         players[i].getXp() + "/" + Player.LEVEL_UP_XP_REQUIREMENTS[players[i].getLevel()],
                         players[i].getLevel(),
                         players[i].getHealth(),
-                        i
+                        i,
+                        players[i].getWinStreak(),
+                        players[i].getLossStreak()
                 ));
             }
             else {
@@ -631,7 +633,9 @@ public class GameController {
                         players[i].getXp() + "/" + Player.LEVEL_UP_XP_REQUIREMENTS[players[i].getLevel()],
                         players[i].getLevel(),
                         players[i].getHealth(),
-                        i
+                        i,
+                        players[i].getWinStreak(),
+                        players[i].getLossStreak()
                 ));
             }
 

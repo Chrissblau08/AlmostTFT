@@ -169,6 +169,7 @@ public class GameWindow extends BorderPane {
         shopView.setPlayerHp(gameState.playerHp);
         shopView.setXpVals(gameState.playerXp, gameState.playerLevel);
         shopView.setGold(gameState.playerGold);
+        shopView.setStreaks(gameState.winStreak, gameState.loseStreak);
 
         //todo -Bugs?
         bankViewEnemy.update(gameState.enemyBench);

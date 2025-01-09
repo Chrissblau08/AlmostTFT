@@ -28,6 +28,13 @@ public class ShopView extends VBox {
     private ViewController viewController;
 
     private ImageView playerHpImageView;  // Neues ImageView für Spieler-HP
+
+    private ImageView winStreak;
+    private ImageView loseStreak;
+    private Label winStreakLabel;
+    private Label loseStreakLabel;
+
+
     private Label hpLabel;                // Label zur Anzeige der HP
     private Label XpLabelProgress;       // Xp Label
     private Label XpLabelLevel;
@@ -56,7 +63,7 @@ public class ShopView extends VBox {
         playerHpPane.getChildren().add(playerHpImageView);
 
         XpLabelLevel = new Label("Level: 1");
-        XpLabelProgress = new Label("0/4");
+        XpLabelProgress = new Label("XP: 0/4");
         hpLabel = new Label("HP: 100");
         VBox playerHpBox = new VBox(5, XpLabelProgress, XpLabelLevel, playerHpPane, hpLabel);
         playerHpBox.setAlignment(Pos.CENTER);
@@ -100,8 +107,26 @@ public class ShopView extends VBox {
             viewController.purchaseXp();
         });
 
+        //Winstreak/Losestreak
+        StackPane streaks = new StackPane();
+        winStreak = new ImageView(new Image(getClass().getResourceAsStream("/sprites/winstreak.gif")));
+        loseStreak = new ImageView(new Image(getClass().getResourceAsStream("/sprites/losestreak.gif")));
+
+        winStreak.setFitWidth(50);
+        winStreak.setFitHeight(50);
+        loseStreak.setFitWidth(50);
+        loseStreak.setFitHeight(50);
+
+        streaks.getChildren().add(winStreak);
+        streaks.getChildren().add(loseStreak);
+
+        winStreakLabel = new Label("Wins: 0");
+        loseStreakLabel = new Label("Loses: 0");
+        VBox streaksVBox = new VBox(10, winStreakLabel, winStreak, loseStreakLabel, loseStreak);
+        streaksVBox.setAlignment(Pos.CENTER);
+
         // Hauptlayout erstellen
-        mainLayout = new HBox(20, playerHpBox, buttonBox, new VBox(goldLabel, unitDisplayArea, menu));
+        mainLayout = new HBox(20, streaksVBox, playerHpBox, buttonBox, new VBox(goldLabel, unitDisplayArea, menu));
         mainLayout.setAlignment(Pos.CENTER);
 
         // Komponenten zum Hauptlayout hinzufügen
@@ -219,7 +244,12 @@ public class ShopView extends VBox {
      * @param level
      */
     public void setXpVals(String progress, int level) {
-        XpLabelProgress.setText(progress);
-        XpLabelLevel.setText(Integer.toString(level));
+        XpLabelProgress.setText("XP: " + progress);
+        XpLabelLevel.setText("Level: " + level);
+    }
+
+    public void setStreaks(int winStreak, int loseStreak){
+        winStreakLabel.setText("Wins: " + winStreak);
+        loseStreakLabel.setText("Loses: " + loseStreak);
     }
 }

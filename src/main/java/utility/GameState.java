@@ -16,9 +16,12 @@ public class GameState
     public final int playerLevel;
     public final String playerXp;
     public final int PlayerID;
+    public final int winStreak;
+    public final int loseStreak;
+
 
     public GameState(List<Unit> playerBench, List<Unit> shopUnits, List<Unit> enemyBench,
-                     List<Unit> playerBoard, int playerGold, String playerXp, int playerLevel, int playerHp, int PlayerID)
+                     List<Unit> playerBoard, int playerGold, String playerXp, int playerLevel, int playerHp, int PlayerID, int winStreak, int loseStreak)
     {
         this.playerBench.addAll(playerBench);
         this.shopUnits.addAll(shopUnits);
@@ -29,5 +32,7 @@ public class GameState
         this.playerLevel = playerLevel;
         this.playerHp = playerHp;
         this.PlayerID = PlayerID;
+        this.winStreak = winStreak;
+        this.loseStreak = loseStreak;
     }
 }
