@@ -137,8 +137,6 @@ public class BoardView extends Pane {
             unitPane.getChildren().add(starLevelImage);
         }
 
-
-
         // Füge die UnitPane zum Grid hinzu
         grid.add(unitPane, unit.getPosX(), unit.getPosY());
         unitSprites.put(unit.getUuid(), unitPane);

@@ -10,7 +10,6 @@ import utility.GameState;
 import utility.Phase;
 import view.BattleView;
 
-import java.nio.file.ClosedWatchServiceException;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -21,7 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class GameController {
 
-    long sixtySecondsTimer = 10 * 1000L; // 60 Sekunden in Millisekunden
+    long sixtySecondsTimer = 30 * 1000L; // 60 Sekunden in Millisekunden
     BattleView battleView = new BattleView();
     private static final int PLAYER_COUNT = 2;
     private Player[] players = new Player[PLAYER_COUNT];
@@ -253,13 +252,13 @@ public class GameController {
      * @param secondSelection    Die Zielposition in der Bank.
      * @param currentPlayer      Der Spieler, der die Einheit verschiebt.
      */
-    public void moveToBank(int firstSelectedIndex, int secondSelection, Player currentPlayer) {
+    public void moveBoardToBank(int firstSelectedIndex, int secondSelection, Player currentPlayer) {
         int PlayerID = currentPlayer.getPlayerID();
 
         List<Unit> board = players[PlayerID].getUnitsOnField();
         List<Unit> bank = players[PlayerID].getBankUnits();
 
-        //if(firstSelectedIndex > board.size() - 1) return;
+        //if(firstSelectedIndex >= board.size()) return;
 
         int x = firstSelectedIndex % 10;
         int y = firstSelectedIndex / 10;
@@ -280,7 +279,6 @@ public class GameController {
         Utmp.setPosY(-1);
         //todo secondSelection als Index fürs Setzen von bank machen
         bank.add(Utmp);
-
         updateGui();
 
         System.out.println("Im trying to move board to bank");
@@ -332,7 +330,8 @@ public class GameController {
         int PlayerID = currentPlayer.getPlayerID();
         List<Unit> bank = players[PlayerID].getBankUnits();
 
-        if(firstIndex > bank.size() || secondIndex > bank.size()) return;
+        if(firstIndex == secondIndex) return;
+        if(firstIndex >= bank.size() || secondIndex >= bank.size()) return;
 
         Unit tmp = bank.get(firstIndex);
         bank.set(firstIndex, bank.get(secondIndex));
@@ -403,6 +402,7 @@ public class GameController {
 
         battleView.setTotalDuration(sixtySecondsTimer);
         phase = Phase.Battle;
+        updateGui();
     }
 
     // Speichert die Positionen aller Einheiten
