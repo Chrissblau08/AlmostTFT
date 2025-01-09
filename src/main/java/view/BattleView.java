@@ -11,17 +11,17 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import model.Player;
 import model.Unit;
 
 import java.util.HashMap;
 import java.util.UUID;
+
+import static javafx.scene.paint.Color.*;
 
 public class BattleView extends BorderPane {
     public static final int SIZE = 10;
@@ -67,8 +67,8 @@ public class BattleView extends BorderPane {
     private Pane createGridCell() {
         Pane cell = new Pane();
         cell.setPrefSize(50, 50);
-        Rectangle border = new Rectangle(50, 50, Color.TRANSPARENT);
-        border.setStroke(Color.GRAY);
+        Rectangle border = new Rectangle(50, 50, TRANSPARENT);
+        border.setStroke(GRAY);
         cell.getChildren().add(border);
         return cell;
     }
@@ -115,23 +115,28 @@ public class BattleView extends BorderPane {
         if (progress >= 1.0) timeline.stop();
     }
 
-    public void update(Unit unit) {
+    public void update(Unit unit, Player currentPlayer) {
         Platform.runLater(() -> {
-            unitSprites.computeIfAbsent(unit.getUuid(), uuid -> createUnitPane(unit));
+            unitSprites.computeIfAbsent(unit.getUuid(), uuid -> createUnitPane(unit, currentPlayer));
             updateUnitPosition(unit);
         });
     }
 
-    private StackPane createUnitPane(Unit unit) {
+    private StackPane createUnitPane(Unit unit, Player currentPlayer) {
         StackPane unitPane = new StackPane();
         unitPane.setPrefSize(50, 50);
-        unitPane.getChildren().addAll(createHpBar(unit), createSprite(unit));
+        unitPane.getChildren().addAll(createHpBar(unit, currentPlayer), createSprite(unit));
         grid.add(unitPane, unit.getPosX(), unit.getPosY());
         return unitPane;
     }
 
-    private ProgressBar createHpBar(Unit unit) {
+    private ProgressBar createHpBar(Unit unit, Player currentPlayer) {
         ProgressBar hpBar = new ProgressBar(unit.getHp() / (double) unit.getMaxHp());
+        if(currentPlayer.getPlayerID() == 0){
+            hpBar.setStyle("-fx-accent: red;");
+        }else {
+            hpBar.setStyle("-fx-accent: blue;");
+        }
         hpBar.setPrefWidth(40);
         hpBar.setTranslateY(20);
         return hpBar;

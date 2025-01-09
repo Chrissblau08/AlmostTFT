@@ -155,6 +155,7 @@ public class BoardView extends Pane {
         hpBar.setProgress(unit.getHp() / (double) unit.getMaxHp());
         hpBar.setTranslateY(20);
 
+
         StackPane unitPane = new StackPane(hpBar, unitSprite);
         unitPane.setPrefSize(50, 50);
         unitPane.setOnMouseClicked(createCellClickHandler(unit.getPosY() * SIZE + unit.getPosX()));

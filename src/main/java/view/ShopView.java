@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.Player;
@@ -42,29 +43,34 @@ public class ShopView extends VBox {
         goldLabel = new Label("Gold: ");
 
         // Player-HP-Bereich
-        if(GameSessionID == 0){
+        StackPane playerHpPane = new StackPane();
+        if (GameSessionID == 0) {
             playerHpImageView = new ImageView(new Image(getClass().getResourceAsStream("/sprites/Pikachu.png")));
-        }else
+            playerHpPane.setStyle("-fx-border-color: red; -fx-border-width: 5px; -fx-background-color: white;");
+        } else {
             playerHpImageView = new ImageView(new Image(getClass().getResourceAsStream("/sprites/Pikachu2.png")));
-        playerHpImageView.setFitWidth(50);
-        playerHpImageView.setFitHeight(50);
+            playerHpPane.setStyle("-fx-border-color: blue; -fx-border-width: 5px; -fx-background-color: white;");
+        }
+        playerHpImageView.setFitWidth(100);
+        playerHpImageView.setFitHeight(100);
+        playerHpPane.getChildren().add(playerHpImageView);
 
-        XpLabelLevel = new Label("Level: 1");;
+        XpLabelLevel = new Label("Level: 1");
         XpLabelProgress = new Label("0/4");
         hpLabel = new Label("HP: 100");
-        VBox playerHpBox = new VBox(5, XpLabelProgress, XpLabelLevel, playerHpImageView, hpLabel);
+        VBox playerHpBox = new VBox(5, XpLabelProgress, XpLabelLevel, playerHpPane, hpLabel);
         playerHpBox.setAlignment(Pos.CENTER);
 
         // Einheiten-Anzeige
         unitDisplayArea = new HBox(15);
         unitDisplayArea.setAlignment(Pos.CENTER);
 
-        //Buttons für Refresh und Xp kaufen
+        // Buttons für Refresh und Xp kaufen
         VBox buttonBox = new VBox();
         btn_purchaseXp = new Button("Purchase XP");
-        btn_purchaseXp.setPrefSize(100,75);
+        btn_purchaseXp.setPrefSize(100, 75);
         refreshButton = new Button("Refresh");
-        refreshButton.setPrefSize(100,75);
+        refreshButton.setPrefSize(100, 75);
         buttonBox.getChildren().addAll(btn_purchaseXp, refreshButton);
 
         // Buttons für Shop-Interaktionen
@@ -90,7 +96,6 @@ public class ShopView extends VBox {
             viewController.refreshShop();
         });
 
-        // Shop-Aktionen verbinden
         btn_purchaseXp.setOnAction(_ -> {
             viewController.purchaseXp();
         });
@@ -98,11 +103,11 @@ public class ShopView extends VBox {
         // Hauptlayout erstellen
         mainLayout = new HBox(20, playerHpBox, buttonBox, new VBox(goldLabel, unitDisplayArea, menu));
         mainLayout.setAlignment(Pos.CENTER);
-        //mainLayout.setSpacing(300);
 
         // Komponenten zum Hauptlayout hinzufügen
         getChildren().add(mainLayout);
     }
+
 
     /**
      * Setzt die angezeigten Einheiten im Shop.

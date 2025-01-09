@@ -82,7 +82,7 @@ public class UnitTask implements Runnable {
             }
             else
             {
-                Platform.runLater(() -> FXcontroller.update(unit));
+                Platform.runLater(() -> FXcontroller.update(unit, currentPlayer));
             }
         }
     }
