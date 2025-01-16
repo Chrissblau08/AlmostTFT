@@ -18,6 +18,7 @@ public class InfoBarView extends GridPane {
     private Text costText;
     private Text positionText;
     private Text starLevel;
+    private Text className;
 
     public InfoBarView() {
         // GridPane Einstellungen
@@ -41,6 +42,7 @@ public class InfoBarView extends GridPane {
         costText = addRow("Cost", 7);
         positionText = addRow("Position", 8);
         starLevel = addRow("Star Level", 9);
+        className = addRow("Class", 10);
 
         // Leeren Zustand setzen
         clearUnitInfo();
@@ -66,6 +68,7 @@ public class InfoBarView extends GridPane {
         costText.setText("");
         positionText.setText("");
         starLevel.setText("");
+        className.setText("");
     }
 
     public void updateUnitInfo(Unit unit) {
@@ -88,5 +91,6 @@ public class InfoBarView extends GridPane {
         costText.setText(String.valueOf(unit.getCost()));
         positionText.setText(String.format("(%d, %d)", unit.getPosX(), unit.getPosY()));
         starLevel.setText(String.valueOf(unit.getStarLevel()));
+        className.setText(unit.getClassName());
     }
 }

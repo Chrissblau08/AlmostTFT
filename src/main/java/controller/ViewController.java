@@ -103,7 +103,7 @@ public class ViewController implements ViewEventListener {
             if (source.equals("Board") && target.equals("Board")) {
                 gameController.moveBoardToBoard(firstIndex, secondIndex, currentPlayer);
             } else if (source.equals("Board") && target.equals("Bank")) {
-                gameController.moveToBank(firstIndex, secondIndex, currentPlayer);
+                gameController.moveBoardToBank(firstIndex, secondIndex, currentPlayer);
             } else if (source.equals("Bank") && target.equals("Board")) {
                 gameController.moveFromBankToBoard(firstIndex, secondIndex, currentPlayer);
             } else if (source.equals("Bank") && target.equals("Bank")) {
